@@ -1,36 +1,38 @@
 # Compiler
-CC = g++
+CC = c++
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -Werror -std=c++11
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 # Source files
-SRC = main.cpp \
-      other_file.cpp
+SRC = main.cpp
 
 # Object files
 OBJ = $(SRC:.cpp=.o)
 
 # Executable name
-EXEC = my_program
+NAME = array
 
 # Default target: compile and link
-all: $(EXEC)
+all: $(NAME)
 
 # Linking the object files to create the executable
-$(EXEC): $(OBJ)
-	$(CC) $(OBJ) -o $(EXEC)
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
 
 # Compiling the .cpp files into .o object files
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Clean up object files and executable
+# Clean up object files
 clean:
-	rm -f $(OBJ) $(EXEC)
+	rm -f $(OBJ)
 
-# Clean up object files only
+# Clean up object files and executable
 fclean: clean
+	rm -f $(NAME)
 
-# Rebuild everything (clean + compile)
+# Rebuild everything
 re: fclean all
+
+.PHONY: all clean fclean re
